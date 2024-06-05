@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.3 on linux)" generated="2024-06-05T02:46:35.486204" rpa="false" schemaversion="5">
+<suite id="s1" name="Valid" source="/home/hyperion/PycharmProjects/LinuxTools/tests/valid.robot">
+<test id="s1-t1" name="Test functionality" line="8">
+<kw name="Call Add Path">
+<kw name="Add Path" owner="exec">
+<arg>${txt}</arg>
+<status status="PASS" start="2024-06-05T02:46:35.516012" elapsed="0.000356"/>
+</kw>
+<arg>${path}</arg>
+<status status="PASS" start="2024-06-05T02:46:35.515506" elapsed="0.000943"/>
+</kw>
+<kw name="Call Add Desktop File">
+<kw name="Add Desktop File" owner="exec">
+<msg time="2024-06-05T02:46:35.517247" level="INFO">[ERROR] :: Root privileges required!</msg>
+<arg>${version}</arg>
+<arg>${name}</arg>
+<arg>${comment}</arg>
+<arg>${genname}</arg>
+<arg>${keywords}</arg>
+<arg>${execute}</arg>
+<arg>${terminal}</arg>
+<arg>${icon}</arg>
+<status status="PASS" start="2024-06-05T02:46:35.516917" elapsed="0.000374"/>
+</kw>
+<arg>1.0.0</arg>
+<arg>TestApp</arg>
+<arg>-</arg>
+<arg>-</arg>
+<arg>-</arg>
+<arg>/bin/ls</arg>
+<arg>false</arg>
+<arg>/</arg>
+<status status="PASS" start="2024-06-05T02:46:35.516625" elapsed="0.000741"/>
+</kw>
+<status status="PASS" start="2024-06-05T02:46:35.515072" elapsed="0.002495"/>
+</test>
+<status status="PASS" start="2024-06-05T02:46:35.486944" elapsed="0.031062"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Valid">Valid</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
