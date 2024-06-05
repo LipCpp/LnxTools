@@ -29,11 +29,11 @@ class PathAdder():
 
         self.label_status = Label(self.frame_wrapper)
         self.label_status.pack(side=TOP, fill=X)
-        btn_submit = Button(self.frame_wrapper, text="Submit", command=lambda: self.add_path())
+        btn_submit = Button(self.frame_wrapper, text="Submit", command=lambda: self.btn_submit(self.entry_path.get()))
         btn_submit.pack(side=TOP)
 
     # addds environment variable in '/home/USERNAME/.custom_path_vars'
-    def add_path(self) -> None: # e.g. /home/hyperion/tests
+    def btn_submit(self, path) -> None: # e.g. /home/hyperion/tests
         # nested function to change status label
         def set_label(status) -> None:
             match status:
@@ -45,28 +45,30 @@ class PathAdder():
                     self.label_status["text"] = "Error: Path does not exist!"
 
         # if path does not exist: print error msg
-        path = self.entry_path.get()
         if not os.path.exists(path):
             set_label(STAT.FAIL)
             return
 
         # handle possible privilege errors
         try:
-            username = getpass.getuser()
-            custom_paths = f"/home/{username}/.custom_path_vars"
-            # if .custom_path_vars does not exist: create file + append new path to PATH
-            if not os.path.exists(custom_paths):
-                with open(custom_paths, "w") as file:
-                    file.write("#!/bin/bash\n")
-                    file.write(f"export PATH=$PATH:{path}\n")
-                with open(f"/home/{username}/.bashrc", "a") as file:
-                    file.write(f"\n\n# Custom PATH amendments (created by {TITLE}):\n")
-                    file.write("bash .custom_path_vars\n")
-                set_label(STAT.OK)
-            else:
-                with open(custom_paths, "a") as file:
-                    file.write(f"export PATH=$PATH:{path}\n")
-                    set_label(STAT.OK)
+            self.add_path(path)
+            set_label(STAT.OK)
         except PermissionError:
             self.label_status["bg"] = "red"
             self.label_status["text"] = "Error: Superuser permissions needed!!"
+
+    def add_path(self, path):
+        username = getpass.getuser()
+        custom_paths = f"/home/{username}/.custom_path_vars"
+
+        # if .custom_path_vars does not exist: create file + append new path to PATH
+        if not os.path.exists(custom_paths):
+            with open(custom_paths, "w") as file:
+                file.write("#!/bin/bash\n")
+                file.write(f"export PATH=$PATH:{path}\n")
+            with open(f"/home/{username}/.bashrc", "a") as file:
+                file.write(f"\n\n# Custom PATH amendments (created by {TITLE}):\n")
+                file.write("bash .custom_path_vars\n")
+        else:
+            with open(custom_paths, "a") as file:
+                file.write(f"export PATH=$PATH:{path}\n")

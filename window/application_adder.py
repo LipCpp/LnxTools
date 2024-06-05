@@ -72,10 +72,10 @@ class ApplicationAdder():
         self.frame_submit = Frame(self.root)
         self.label_error = Label(self.frame_submit, fg="white")
         self.label_error.pack(side=TOP, fill=X)
-        Button(self.frame_submit, text="Generate File", command=lambda: self.get_values()).pack(side=TOP)
+        Button(self.frame_submit, text="Generate File", command=lambda: self.btn_submit()).pack(side=TOP)
         self.frame_submit.pack(side=TOP, fill=BOTH, pady=15)
 
-    def get_values(self) -> None:
+    def btn_submit(self) -> None:
         version = self.entry_version.get()
         name = self.entry_name.get()
         comment = self.entry_comment.get()
